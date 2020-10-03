@@ -16,6 +16,9 @@ void AGlobals::BeginPlay()
 {
 	Super::BeginPlay();
 	
+	if (bulletCount >= 5) {
+		bulletCount = 0;
+	}
 }
 
 // Called every frame
