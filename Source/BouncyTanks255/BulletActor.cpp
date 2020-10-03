@@ -21,6 +21,12 @@ void ABulletActor::BeginPlay()
 {
 	Super::BeginPlay();
 	
+	global = GetGlobals();
+	
+	for (TObjectIterator<AGlobals> It; It; ++It)
+	{
+		It->bulletCount++;
+	}
 }
 
 // Called every frame
@@ -36,7 +42,24 @@ void ABulletActor::Tick(float DeltaTime)
 	}
 	else {
 		PrimaryActorTick.bCanEverTick = true;
+		for (TObjectIterator<AGlobals> It; It; ++It)
+		{
+			It->bulletCount--;
+		}
 		Destroy();
 	}
 }
 
+AGlobals* ABulletActor::GetGlobals() const
+{
+	if (global) {
+		return global;
+	}
+	else
+	{
+		UE_LOG(LogTemp, Warning, TEXT("Globals not initialized"));
+	}
+
+	return NULL;
+
+}

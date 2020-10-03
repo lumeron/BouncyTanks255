@@ -31,7 +31,8 @@ protected:
 	// overrides springArmDistance default
 	float springArmDistance = 250.f;
 
-	bool canFire = 1;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+		bool canFire = 1;
 
 	// variable for base move speed - moved to make it dynamic
 	//float MovementScale = 5.f;

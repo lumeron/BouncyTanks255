@@ -24,9 +24,10 @@ public:
 		int timeInSeconds = 0;
 	
 	UPROPERTY(Category = "BulletSpawnable", EditAnywhere, BlueprintReadWrite)
-		bool bulletIsSpawnable;
+		bool bulletIsSpawnable = true;
 
-	int32 bulletCount;
+	UPROPERTY(Category = "BulletSpawnable", EditAnywhere, BlueprintReadWrite)
+		int32 bulletCount = 0;
 	
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
