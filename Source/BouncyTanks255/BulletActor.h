@@ -25,6 +25,8 @@ protected:
 	UPROPERTY(Category = "basedamage", EditAnywhere, BlueprintReadWrite)
 		float baseDamage = 10.0f;
 
+	float currentLifespan;
+
 public:	
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;

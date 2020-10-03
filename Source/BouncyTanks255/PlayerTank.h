@@ -8,6 +8,7 @@
 #include "GameFramework/SpringArmComponent.h"
 #include "Camera/CameraComponent.h"
 #include "PlayerTankMovementComponent.h"
+#include "Globals.h"
 //#include "PlayerTankRotationComponent.h"
 #include "PlayerTank.generated.h"
 
@@ -20,12 +21,17 @@ public:
 	// Sets default values for this pawn's properties
 	APlayerTank();
 
+private:
+	AGlobals* global;
+
 protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
 
 	// overrides springArmDistance default
 	float springArmDistance = 250.f;
+
+	bool canFire = 1;
 
 	// variable for base move speed - moved to make it dynamic
 	//float MovementScale = 5.f;
@@ -41,6 +47,8 @@ public:
 
 	// Called to bind functionality to input
 	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
+
+	AGlobals* GetGlobals() const;
 
 	// lines for the mesh component
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)

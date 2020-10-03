@@ -13,6 +13,7 @@ ABulletActor::ABulletActor()
 	baseSpeed = 100.0f;
 	baseDamage = 10.0f;
 	*/
+	currentLifespan = baseLifespan;
 }
 
 // Called when the game starts or when spawned
@@ -27,5 +28,15 @@ void ABulletActor::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
 
+	FVector MovementThisFrame = this->GetActorForwardVector() * baseSpeed * DeltaTime;
+	this->SetActorLocation(this->GetActorLocation() + MovementThisFrame);
+
+	if (currentLifespan > 0.0f) {
+		currentLifespan -= 1.0f;
+	}
+	else {
+		PrimaryActorTick.bCanEverTick = true;
+		Destroy();
+	}
 }
 

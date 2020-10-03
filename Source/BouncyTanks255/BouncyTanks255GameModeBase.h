@@ -13,5 +13,5 @@ UCLASS()
 class BOUNCYTANKS255_API ABouncyTanks255GameModeBase : public AGameModeBase
 {
 	GENERATED_BODY()
-	
+
 };

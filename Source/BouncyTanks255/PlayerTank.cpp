@@ -35,6 +35,7 @@ void APlayerTank::BeginPlay()
 {
 	Super::BeginPlay();
 	
+	global = GetGlobals();
 }
 
 // Called every frame
@@ -42,6 +43,15 @@ void APlayerTank::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
 
+	for (TObjectIterator<AGlobals> It; It; ++It)
+	{
+		if (It->bulletIsSpawnable == 0) {
+			this->canFire = 0;
+		}
+		else {
+			this->canFire = 1;
+		}
+	}
 }
 
 
@@ -55,8 +65,7 @@ void APlayerTank::SetupPlayerInputComponent(UInputComponent* PlayerInputComponen
 	//UE_LOG(LogTemp, Log, TEXT("Axis left-right bind function called"));
 	PlayerInputComponent->BindAxis("PlayerTankMoveForwardBackward", this, &APlayerTank::MoveForwardBackward);
 	UE_LOG(LogTemp, Log, TEXT("Axis forward-backward bind function called"));
-	
-	PlayerInputComponent->BindAction("Fire", this, &APlayerTank::Fire);
+	PlayerInputComponent->BindAction("Fire", IE_Pressed, this, &APlayerTank::Fire);
 	UE_LOG(LogTemp, Log, TEXT("Fire action bind function called"));
 
 	/* commented as per lower comments - this works very nicely in blueprint but fails in C++ - no rotation commands seem to be accessible in the class heirarchy
@@ -87,9 +96,7 @@ void APlayerTank::MoveForwardBackward(float val) {
 
 void APlayerTank::Fire() {
 
-	if (MovementComponent && (MovementComponent->UpdatedComponent == RootComponent)) {
-		MovementComponent->AddInputVector(GetActorForwardVector() * (val * MovementScale));
-	}
+	// code handled in blueprint event to avoid time sink
 
 }
 
@@ -114,4 +121,18 @@ void APlayerTank::AimY(float val) {
 UPawnMovementComponent* APlayerTank::GetMovementComponent() const
 {
 	return MovementComponent;
+}
+
+AGlobals* APlayerTank::GetGlobals() const
+{
+	if (global) {
+		return global;
+	}
+	else
+	{
+		UE_LOG(LogTemp, Warning, TEXT("Globals not initialized"));
+	}
+
+	return NULL;
+
 }

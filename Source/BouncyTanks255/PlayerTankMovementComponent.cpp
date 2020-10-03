@@ -16,5 +16,11 @@ void UPlayerTankMovementComponent::TickComponent(float DeltaTime, enum ELevelTic
     if (!MovementThisFrame.IsNearlyZero()) {
         FHitResult Hit;
         SafeMoveUpdatedComponent(MovementThisFrame, UpdatedComponent->GetComponentRotation(), true, Hit);
+        
+        if (Hit.IsValidBlockingHit())
+        {
+
+            SlideAlongSurface(MovementThisFrame, 1.f - Hit.Time, Hit.Normal, Hit);
+        }
     }
 }
