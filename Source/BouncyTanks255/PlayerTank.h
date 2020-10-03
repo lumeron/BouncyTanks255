@@ -8,6 +8,7 @@
 #include "GameFramework/SpringArmComponent.h"
 #include "Camera/CameraComponent.h"
 #include "PlayerTankMovementComponent.h"
+//#include "PlayerTankRotationComponent.h"
 #include "PlayerTank.generated.h"
 
 UCLASS()
@@ -29,6 +30,7 @@ protected:
 	// variable for base move speed - moved to make it dynamic
 	//float MovementScale = 5.f;
 	UPlayerTankMovementComponent* MovementComponent;
+//	UPlayerTankRotationComponent* RotationComponent;
 
 	FVector2D MovementInput;
 
@@ -56,9 +58,17 @@ public:
 	UPROPERTY(Category = "Speed", EditAnywhere, BlueprintReadWrite)
 		float MovementScale = 5.f;
 
-	void MoveLeftRight(float val);
-	void MoveForwardBackward(float val);
+	UPROPERTY(Category = "RotationSpeed", EditAnywhere, BlueprintReadWrite)
+		float RotationScale = 0.1f;
 
+	//void MoveLeftRight(float val);
+	void MoveForwardBackward(float val);
+	void Fire();
+
+	/* commented due to issues getting rotation to work with pawnmovementcomponent in C++
+	void AimX(float val);
+	void AimY(float val);
+	*/
 	virtual UPawnMovementComponent* GetMovementComponent() const override;
 
 };

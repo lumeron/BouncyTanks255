@@ -51,13 +51,23 @@ void APlayerTank::SetupPlayerInputComponent(UInputComponent* PlayerInputComponen
 	Super::SetupPlayerInputComponent(PlayerInputComponent);
 
 	// mapping to the input axis (with logging for each)
-	PlayerInputComponent->BindAxis("PlayerTankMoveLeftRight", this, &APlayerTank::MoveLeftRight);
-	UE_LOG(LogTemp, Log, TEXT("Axis left-right bind function called"));
+	//PlayerInputComponent->BindAxis("PlayerTankMoveLeftRight", this, &APlayerTank::MoveLeftRight);
+	//UE_LOG(LogTemp, Log, TEXT("Axis left-right bind function called"));
 	PlayerInputComponent->BindAxis("PlayerTankMoveForwardBackward", this, &APlayerTank::MoveForwardBackward);
 	UE_LOG(LogTemp, Log, TEXT("Axis forward-backward bind function called"));
+	
+	PlayerInputComponent->BindAction("Fire", this, &APlayerTank::Fire);
+	UE_LOG(LogTemp, Log, TEXT("Fire action bind function called"));
 
+	/* commented as per lower comments - this works very nicely in blueprint but fails in C++ - no rotation commands seem to be accessible in the class heirarchy
+	PlayerInputComponent->BindAxis("AimX", this, &APlayerTank::AimX);
+	UE_LOG(LogTemp, Log, TEXT("AimX axis bind function called"));
+	PlayerInputComponent->BindAxis("AimY", this, &APlayerTank::AimY);
+	UE_LOG(LogTemp, Log, TEXT("AimY axis bind function called"));
+	*/
 }
 
+/* commented after initial tests - perhaps sideways movement can be implemented later after chassis rotation but for now rotation is attached to axis
 void APlayerTank::MoveLeftRight(float val) {
 
 	if (MovementComponent && (MovementComponent->UpdatedComponent == RootComponent)) {
@@ -65,6 +75,7 @@ void APlayerTank::MoveLeftRight(float val) {
 	}
 
 }
+*/
 
 void APlayerTank::MoveForwardBackward(float val) {
 
@@ -73,6 +84,32 @@ void APlayerTank::MoveForwardBackward(float val) {
 	}
 
 }
+
+void APlayerTank::Fire() {
+
+	if (MovementComponent && (MovementComponent->UpdatedComponent == RootComponent)) {
+		MovementComponent->AddInputVector(GetActorForwardVector() * (val * MovementScale));
+	}
+
+}
+
+/* commented out as rotation does no appear to work for pawn class. will try in blueprint to avoid spending more than the 3 hours I have already spent trying to get this to work. (Edit: this works nicely in blueprint... I'm not sure why the class heirarchy had no rotation capabilities.)
+void APlayerTank::AimX(float val) {
+
+	if (MovementComponent && (MovementComponent->UpdatedComponent == RootComponent)) {
+		MovementComponent->AddActorWorldRotation(GetActorRotation() * (val * MovementScale));
+	}
+
+}
+
+void APlayerTank::AimY(float val) {
+
+	if (MovementComponent && (MovementComponent->UpdatedComponent == RootComponent)) {
+		MovementComponent->AddInputVector(GetActorRotation() * (val * MovementScale));
+	}
+
+}
+*/
 
 UPawnMovementComponent* APlayerTank::GetMovementComponent() const
 {
