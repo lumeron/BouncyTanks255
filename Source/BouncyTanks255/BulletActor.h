@@ -26,6 +26,9 @@ private:
 		UProjectileMovementComponent* ProjectileMovement;
 	UPROPERTY(Category = "Components", VisibleAnywhere, BlueprintReadOnly, meta = (AllowPrivateAccess = "true"))
 		UStaticMeshComponent* ProjectileMeshComponent;
+	UPROPERTY(EditDefaultsOnly, Category = "Damage")
+		TSubclassOf<UDamageType> DamageType;
+
 
 protected:
 	// Called when the game starts or when spawned
@@ -42,8 +45,8 @@ public:
 	UPROPERTY(Category = "BaseValues", EditAnywhere, BlueprintReadWrite)
 		float baseLifespan = 4.0f;
 	UPROPERTY(Category = "BaseValues", EditAnywhere, BlueprintReadWrite)
-		float baseSpeed = 900.0f;
-	UPROPERTY(Category = "BaseValues", EditAnywhere, BlueprintReadWrite)
+		float baseSpeed = 1500.0f;
+	UPROPERTY(Category = "Damage", EditAnywhere, BlueprintReadWrite)
 		float baseDamage = 10.0f;
 
 	AGlobals* GetGlobals() const;

@@ -65,12 +65,12 @@ public:
 
 	// added dynamic movement speed property
 	UPROPERTY(Category = "BaseValues", EditAnywhere, BlueprintReadWrite)
-		float MovementScale = 5.f;
+		float MovementScale = 10.f;
 
 	UPROPERTY(Category = "BaseValues", EditAnywhere, BlueprintReadWrite)
 		float RotationScale = 0.1f;
 
-	//void MoveLeftRight(float val);
+//	void MoveLeftRight(float val);
 	void MoveForwardBackward(float val);
 	void Fire();
 

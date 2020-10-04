@@ -61,8 +61,8 @@ void APlayerTank::SetupPlayerInputComponent(UInputComponent* PlayerInputComponen
 	Super::SetupPlayerInputComponent(PlayerInputComponent);
 
 	// mapping to the input axis (with logging for each)
-	//PlayerInputComponent->BindAxis("PlayerTankMoveLeftRight", this, &APlayerTank::MoveLeftRight);
-	//UE_LOG(LogTemp, Log, TEXT("Axis left-right bind function called"));
+//	PlayerInputComponent->BindAxis("PlayerTankMoveLeftRight", this, &APlayerTank::MoveLeftRight);
+//	UE_LOG(LogTemp, Log, TEXT("Axis left-right bind function called"));
 	PlayerInputComponent->BindAxis("PlayerTankMoveForwardBackward", this, &APlayerTank::MoveForwardBackward);
 	UE_LOG(LogTemp, Log, TEXT("Axis forward-backward bind function called"));
 	PlayerInputComponent->BindAction("Fire", IE_Pressed, this, &APlayerTank::Fire);
@@ -76,11 +76,11 @@ void APlayerTank::SetupPlayerInputComponent(UInputComponent* PlayerInputComponen
 	*/
 }
 
-/* commented after initial tests - perhaps sideways movement can be implemented later after chassis rotation but for now rotation is attached to axis
+/* commented after initial tests - perhaps sideways movement can be implemented later after chassis rotation but for now rotation is attached to axis 
 void APlayerTank::MoveLeftRight(float val) {
 
 	if (MovementComponent && (MovementComponent->UpdatedComponent == RootComponent)) {
-		MovementComponent->AddInputVector(GetActorRightVector() * (val * MovementScale));
+		MovementComponent->AddInputVector(GetActorRightVector() * (val * (MovementScale / 2)));
 	}
 
 }
