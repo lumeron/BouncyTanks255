@@ -16,7 +16,7 @@ void AGlobals::BeginPlay()
 {
 	Super::BeginPlay();
 	
-	if (bulletCount >= 5) {
+	if (bulletCount >= 7) {
 		bulletCount = 0;
 	}
 }
@@ -26,7 +26,7 @@ void AGlobals::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
 
-	if (bulletCount < 5) {
+	if (bulletCount < 7) {
 		if (bulletIsSpawnable == 0) {
 			bulletIsSpawnable = 1;
 		}

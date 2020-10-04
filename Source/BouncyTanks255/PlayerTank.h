@@ -52,22 +52,22 @@ public:
 	AGlobals* GetGlobals() const;
 
 	// lines for the mesh component
-	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	UPROPERTY(Category = "Components", EditAnywhere, BlueprintReadWrite)
 		UStaticMeshComponent* body;
 
 	// lines for the springarm component
-	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	UPROPERTY(Category = "Components", EditAnywhere, BlueprintReadWrite)
 		USpringArmComponent* springArm;
 
 	// lines for the camera component
-	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	UPROPERTY(Category = "Components", EditAnywhere, BlueprintReadWrite)
 		UCameraComponent* camera;
 
 	// added dynamic movement speed property
-	UPROPERTY(Category = "Speed", EditAnywhere, BlueprintReadWrite)
+	UPROPERTY(Category = "BaseValues", EditAnywhere, BlueprintReadWrite)
 		float MovementScale = 5.f;
 
-	UPROPERTY(Category = "RotationSpeed", EditAnywhere, BlueprintReadWrite)
+	UPROPERTY(Category = "BaseValues", EditAnywhere, BlueprintReadWrite)
 		float RotationScale = 0.1f;
 
 	//void MoveLeftRight(float val);

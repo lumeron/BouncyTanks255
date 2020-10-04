@@ -20,13 +20,13 @@ protected:
 	virtual void BeginPlay() override;
 
 public:	
-	UPROPERTY(Category = "GlobalVariable", EditAnywhere, BlueprintReadWrite)
+	UPROPERTY(Category = "GlobalVariables", EditAnywhere, BlueprintReadWrite)
 		int timeInSeconds = 0;
 	
-	UPROPERTY(Category = "BulletSpawnable", EditAnywhere, BlueprintReadWrite)
+	UPROPERTY(Category = "GlobalVariables", EditAnywhere, BlueprintReadWrite)
 		bool bulletIsSpawnable = true;
 
-	UPROPERTY(Category = "BulletSpawnable", EditAnywhere, BlueprintReadWrite)
+	UPROPERTY(Category = "GlobalVariables", EditAnywhere, BlueprintReadWrite)
 		int32 bulletCount = 0;
 	
 	// Called every frame
