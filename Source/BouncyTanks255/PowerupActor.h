@@ -53,6 +53,8 @@ public:
 		float powerEffect = 10.0f;
 	UPROPERTY(Category = "PowerupSettings", EditAnywhere, BlueprintReadWrite)
 		TEnumAsByte<EPowerupTypes::Type> PowerupType;
+	UPROPERTY(Category = "PowerupSettings", EditAnywhere, BlueprintReadWrite)
+		bool powerupAvailable = 0;
 	
 //	UPROPERTY(Category = "PowerupSettings", EditAnywhere, BlueprintReadWrite)
 //		FString baseLifespan = "";

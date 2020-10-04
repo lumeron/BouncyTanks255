@@ -13,7 +13,7 @@ ABulletActor::ABulletActor()
 	baseSpeed = 100.0f;
 	baseDamage = 10.0f;
 	*/
-	currentLifespan = baseLifespan;
+//	currentLifespan = baseLifespan;
 
 	ProjectileMeshComponent = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("ProjectileMeshComponent"));
 	RootComponent = ProjectileMeshComponent;
@@ -23,6 +23,8 @@ ABulletActor::ABulletActor()
 	ProjectileMovement->MaxSpeed = baseSpeed;
 	
 	InitialLifeSpan = baseLifespan;
+
+	currentDamage = baseDamage;
 }
 
 // Called when the game starts or when spawned
@@ -47,7 +49,7 @@ void ABulletActor::Tick(float DeltaTime)
 	FVector MovementThisFrame = this->GetActorForwardVector() * baseSpeed * DeltaTime;
 	this->SetActorLocation(this->GetActorLocation() + MovementThisFrame);
 	*/
-	/* originally i was manually handling lifespan, but then i learned about the actual lifespan variable that uses seconds, so i used that instead (below).
+	/* originally I was manually handling lifespan, but then i learned about the actual lifespan variable that uses seconds, so i used that instead (below).
 	if (currentLifespan > 0.0f) {
 		currentLifespan -= 1.0f;
 	}
@@ -65,11 +67,15 @@ void ABulletActor::Tick(float DeltaTime)
 
 void ABulletActor::LifeSpanExpired()
 {
+	Destroy();
+}
+
+void ABulletActor::Destroyed()
+{
 	for (TObjectIterator<AGlobals> It; It; ++It)
 	{
 		It->bulletCount--;
 	}
-	Destroy();
 }
 
 AGlobals* ABulletActor::GetGlobals() const

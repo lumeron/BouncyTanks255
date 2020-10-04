@@ -8,6 +8,7 @@
 #include "GameFramework/SpringArmComponent.h"
 #include "Camera/CameraComponent.h"
 #include "PlayerTankMovementComponent.h"
+#include "StatsComponent.h"
 #include "Globals.h"
 //#include "PlayerTankRotationComponent.h"
 #include "PlayerTank.generated.h"
@@ -62,6 +63,10 @@ public:
 	// lines for the camera component
 	UPROPERTY(Category = "Components", EditAnywhere, BlueprintReadWrite)
 		UCameraComponent* camera;
+
+	// lines for the camera component
+//	UPROPERTY(Category = "Components", EditAnywhere, BlueprintReadWrite)
+//		UStatsComponent* playerStats;
 
 	// added dynamic movement speed property
 	UPROPERTY(Category = "BaseValues", EditAnywhere, BlueprintReadWrite)

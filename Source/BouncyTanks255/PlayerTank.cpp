@@ -28,6 +28,8 @@ APlayerTank::APlayerTank()
 	MovementComponent = CreateDefaultSubobject<UPlayerTankMovementComponent>("playertankmovementcomponent");
 	MovementComponent->UpdatedComponent = RootComponent;
 
+	//playerStats = CreateDefaultSubobject<UStatsComponent>(TEXT("playerstats"));
+
 }
 
 // Called when the game starts or when spawned

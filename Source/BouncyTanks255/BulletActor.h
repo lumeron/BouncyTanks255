@@ -34,20 +34,23 @@ protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
 	
-	float currentLifespan;
+//	float currentLifespan;
 
 public:	
 	// Called every frame
 //	virtual void Tick(float DeltaTime) override;
 
 	virtual void LifeSpanExpired() override;
+	virtual void Destroyed() override;
 
 	UPROPERTY(Category = "BaseValues", EditAnywhere, BlueprintReadWrite)
 		float baseLifespan = 4.0f;
 	UPROPERTY(Category = "BaseValues", EditAnywhere, BlueprintReadWrite)
 		float baseSpeed = 1500.0f;
-	UPROPERTY(Category = "Damage", EditAnywhere, BlueprintReadWrite)
+	UPROPERTY(Category = "BaseValues", EditAnywhere, BlueprintReadWrite)
 		float baseDamage = 10.0f;
+	UPROPERTY(Category = "Damage", EditAnywhere, BlueprintReadWrite)
+		float currentDamage;
 
 	AGlobals* GetGlobals() const;
 };
