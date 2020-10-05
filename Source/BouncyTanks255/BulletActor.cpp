@@ -70,6 +70,11 @@ void ABulletActor::LifeSpanExpired()
 	Destroy();
 }
 
+/* 
+* Originally I had the following section under Tick (under a lifeSpan manual check), but then I learned about LifeSpanExpired, and then after some testing I realized that
+* LifeSpanExpired would not be the only way that bullet gets destroyed, so my global bullet count was blowing out of proportion. Repaired by putting Destroy() in LifeSpanExpired
+* as well and then implementing the following Destroyed() override.
+*/
 void ABulletActor::Destroyed()
 {
 	for (TObjectIterator<AGlobals> It; It; ++It)

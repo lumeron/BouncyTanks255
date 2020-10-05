@@ -32,6 +32,7 @@ protected:
 	// overrides springArmDistance default
 	float springArmDistance = 250.f;
 
+	//controls player's ability to fire a shot - "globals" singleton keeps a count of current number of player projectiles
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 		bool canFire = 1;
 
@@ -55,6 +56,14 @@ public:
 	// lines for the mesh component
 	UPROPERTY(Category = "Components", EditAnywhere, BlueprintReadWrite)
 		UStaticMeshComponent* body;
+		
+	/* 
+	* I'm very happy with how this next property worked. Originally I created it in C++ and then it was not working so I reverted to using blueprints - however, after 
+	* testing and getting it working in blueprint I re-implemented via C++ using the logic that the blueprints presented
+	*/
+	// stats component to deal with character stats
+	UPROPERTY(Category = "Components", EditAnywhere, BlueprintReadWrite)
+		UStatsComponent* playerStats;
 
 	// lines for the springarm component
 	UPROPERTY(Category = "Components", EditAnywhere, BlueprintReadWrite)
@@ -63,10 +72,6 @@ public:
 	// lines for the camera component
 	UPROPERTY(Category = "Components", EditAnywhere, BlueprintReadWrite)
 		UCameraComponent* camera;
-
-	// lines for the camera component
-//	UPROPERTY(Category = "Components", EditAnywhere, BlueprintReadWrite)
-//		UStatsComponent* playerStats;
 
 	// added dynamic movement speed property
 	UPROPERTY(Category = "BaseValues", EditAnywhere, BlueprintReadWrite)

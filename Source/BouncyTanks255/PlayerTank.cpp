@@ -28,7 +28,7 @@ APlayerTank::APlayerTank()
 	MovementComponent = CreateDefaultSubobject<UPlayerTankMovementComponent>("playertankmovementcomponent");
 	MovementComponent->UpdatedComponent = RootComponent;
 
-	//playerStats = CreateDefaultSubobject<UStatsComponent>(TEXT("playerstats"));
+	playerStats = CreateDefaultSubobject<UStatsComponent>(TEXT("playerstats"));
 
 }
 
