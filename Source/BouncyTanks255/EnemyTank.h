@@ -34,6 +34,10 @@ public:
 //	AGlobals* GetGlobals() const;
 
 	// added dynamic movement speed property
+	UPROPERTY(Category = "StateHandling", EditAnywhere, BlueprintReadWrite)
+		FString currentState = "default";
+
+	// added dynamic movement speed property
 	UPROPERTY(Category = "BaseValues", EditAnywhere, BlueprintReadWrite)
 		float MovementScale = 10.f;
 

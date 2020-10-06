@@ -6,6 +6,9 @@
 #include "AIController.h"
 #include "Kismet/GameplayStatics.h"
 #include "Math/RandomStream.h"
+#include "StatsComponent.h"
+#include "EnemyTank.h"
+#include "PowerupActor.h"
 #include "BehaviorTree/BlackboardComponent.h"
 #include "EnemyTankAIController.generated.h"
 
@@ -31,4 +34,9 @@ protected:
 public:
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
+
+	UPROPERTY(Category = "StateHandling", EditAnywhere, BlueprintReadWrite)
+		FString controllerState = "default";
+
+	APawn* PlayerTank;
 };

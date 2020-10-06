@@ -16,12 +16,12 @@ void AEnemyTankAIController::BeginPlay()
 	if (AIBehaviorEnemyTank != nullptr) {
 		RunBehaviorTree(AIBehaviorEnemyTank);
 
-		APawn* PlayerTank = UGameplayStatics::GetPlayerPawn(GetWorld(), 0);
+		PlayerTank = UGameplayStatics::GetPlayerPawn(GetWorld(), 0);
 
 		//Get player position - this will probably be removed and only fetched when player is seen
 		GetBlackboardComponent()->SetValueAsVector(TEXT("PawnSpawnPosition"),GetPawn()->GetActorLocation());
 		//Get pawn spawn position - this could be adjusted for a "return to" location
-		GetBlackboardComponent()->SetValueAsVector(TEXT("PlayerTankLocation"),PlayerTank->GetActorLocation());
+//		GetBlackboardComponent()->SetValueAsVector(TEXT("PlayerTankLocation"),PlayerTank->GetActorLocation());
 
 		FRandomStream randomizer = FRandomStream();
 		randomizer.GenerateNewSeed();
@@ -48,8 +48,6 @@ void AEnemyTankAIController::BeginPlay()
 
 	}
 
-	//PlayerPawn = UGameplayStatics::GetPlayerPawn(GetWorld(), 0);
-
 
 }
 
@@ -57,18 +55,37 @@ void AEnemyTankAIController::BeginPlay()
 void AEnemyTankAIController::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
+	controllerState = GetPawn()->currentState;
+	PlayerTank = UGameplayStatics::GetPlayerPawn(GetWorld(), 0);
+	//	GetPawn()->GetComponentByClass(TSubclassOf<UStatsComponent>(TEXT("aistats")) ;
 
-//	SetFocus(PlayerPawn);
-/*
-	MoveToActor(PlayerPawn);
-	if (LineOfSightTo(PlayerPawn)) {
-		SetFocus(PlayerPawn);
-		MoveToActor(PlayerPawn, 100);
-	} else {
-		ClearFocus(EAIFocusPriority::Gameplay);
-		StopMovement();
+	if (controllerState.Equals("healing")) {
+		GetBlackboardComponent()->SetValueAsBool(TEXT("healing"), true);
+		for (TObjectIterator<APowerupActor> It; It; ++It)
+		{
+			// get the first available powerup actor and then break the loop
+			if (!It->IsHidden()) {
+				GetBlackboardComponent()->SetValueAsVector(TEXT("healingLocation"), It->GetActorLocation());
+				break;
+			}
+		}
 	}
-*/
+	else {
+		GetBlackboardComponent()->ClearValue(TEXT("healing"));
+		GetBlackboardComponent()->ClearValue(TEXT("healingLocation"));
+
+		//handles dynamic settings for blackboard components
+		if (LineOfSightTo(PlayerTank) && !controllerState.Equals("healing")) {
+			GetBlackboardComponent()->SetValueAsBool(TEXT("pursuit"), true);
+			GetBlackboardComponent()->SetValueAsVector(TEXT("PlayerTankLocation"), PlayerTank->GetActorLocation());
+		}
+		else {
+			GetBlackboardComponent()->ClearValue(TEXT("PlayerTankLocation"));
+			GetBlackboardComponent()->ClearValue(TEXT("pursuit"));
+		}
+	}
+
+	
 }
 
 
