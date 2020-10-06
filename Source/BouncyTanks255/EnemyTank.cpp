@@ -17,6 +17,8 @@ AEnemyTank::AEnemyTank()
 void AEnemyTank::BeginPlay()
 {
 	Super::BeginPlay();
+
+//	global = GetGlobals();
 }
 
 // Called every frame
@@ -46,6 +48,7 @@ void AEnemyTank::Fire()
 	return;
 }
 
+/* not being used as objectiterator is now handling it
 AGlobals* AEnemyTank::GetGlobals() const
 {
 	if (global) {
@@ -53,9 +56,10 @@ AGlobals* AEnemyTank::GetGlobals() const
 	}
 	else
 	{
-		UE_LOG(LogTemp, Warning, TEXT("Globals not initialized"));
+		UE_LOG(LogTemp, Warning, TEXT("EnemyTank.cpp reports globals not initialized"));
 	}
 
 	return NULL;
 
 }
+*/

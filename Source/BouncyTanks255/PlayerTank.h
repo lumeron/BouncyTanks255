@@ -51,7 +51,7 @@ public:
 	// Called to bind functionality to input
 	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
 
-	AGlobals* GetGlobals() const;
+//	AGlobals* GetGlobals() const;
 
 	// lines for the mesh component
 	UPROPERTY(Category = "Components", EditAnywhere, BlueprintReadWrite)

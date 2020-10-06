@@ -31,7 +31,7 @@ protected:
 	virtual void BeginPlay() override;
 
 public:	
-	AGlobals* GetGlobals() const;
+//	AGlobals* GetGlobals() const;
 
 	// added dynamic movement speed property
 	UPROPERTY(Category = "BaseValues", EditAnywhere, BlueprintReadWrite)

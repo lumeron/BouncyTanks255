@@ -5,6 +5,8 @@
 #include "CoreMinimal.h"
 #include "AIController.h"
 #include "Kismet/GameplayStatics.h"
+#include "Math/RandomStream.h"
+#include "BehaviorTree/BlackboardComponent.h"
 #include "EnemyTankAIController.generated.h"
 
 /**
@@ -19,7 +21,9 @@ public:
 	AEnemyTankAIController();
 
 private:
-	APawn* PlayerPawn;
+	UPROPERTY(EditAnywhere)
+		class UBehaviorTree* AIBehaviorEnemyTank;
+//	APawn* PlayerTank;
 
 protected:
 	virtual void BeginPlay() override;

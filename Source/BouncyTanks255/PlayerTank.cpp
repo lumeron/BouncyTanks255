@@ -37,7 +37,7 @@ void APlayerTank::BeginPlay()
 {
 	Super::BeginPlay();
 	
-	global = GetGlobals();
+//	global = GetGlobals();
 }
 
 // Called every frame
@@ -127,6 +127,7 @@ UPawnMovementComponent* APlayerTank::GetMovementComponent() const
 	return MovementComponent;
 }
 
+/* not being used as objectiterator is now handling it
 AGlobals* APlayerTank::GetGlobals() const
 {
 	if (global) {
@@ -134,9 +135,10 @@ AGlobals* APlayerTank::GetGlobals() const
 	}
 	else
 	{
-		UE_LOG(LogTemp, Warning, TEXT("Globals not initialized"));
+		UE_LOG(LogTemp, Warning, TEXT("PlayerTank.cpp reports globals not initialized"));
 	}
 
 	return NULL;
 
 }
+*/

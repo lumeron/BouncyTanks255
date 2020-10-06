@@ -52,5 +52,5 @@ public:
 	UPROPERTY(Category = "Damage", EditAnywhere, BlueprintReadWrite)
 		float currentDamage;
 
-	AGlobals* GetGlobals() const;
+//	AGlobals* GetGlobals() const;
 };

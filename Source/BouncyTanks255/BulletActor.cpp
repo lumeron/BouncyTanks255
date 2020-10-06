@@ -32,7 +32,7 @@ void ABulletActor::BeginPlay()
 {
 	Super::BeginPlay();
 	
-	global = GetGlobals();
+//	global = GetGlobals();
 	
 	for (TObjectIterator<AGlobals> It; It; ++It)
 	{
@@ -82,7 +82,7 @@ void ABulletActor::Destroyed()
 		It->bulletCount--;
 	}
 }
-
+/* not being used as objectiterator is now handling it
 AGlobals* ABulletActor::GetGlobals() const
 {
 	if (global) {
@@ -90,9 +90,10 @@ AGlobals* ABulletActor::GetGlobals() const
 	}
 	else
 	{
-		UE_LOG(LogTemp, Warning, TEXT("Globals not initialized"));
+		UE_LOG(LogTemp, Warning, TEXT("BulletActor.cpp reports globals not initialized"));
 	}
 
 	return NULL;
 
 }
+*/
