@@ -55,10 +55,14 @@ void AEnemyTankAIController::BeginPlay()
 void AEnemyTankAIController::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
-	controllerState = GetPawn()->currentState;
+	
+//	controllerState = GetPawn()->get     GetComponentsByTag(UStatsComponent::StaticClass(), FName("aistats"))->currentHealth;
+			//FindComponentByClass(TSubclassOf<UStatsComponent>("aistats"));
 	PlayerTank = UGameplayStatics::GetPlayerPawn(GetWorld(), 0);
 	//	GetPawn()->GetComponentByClass(TSubclassOf<UStatsComponent>(TEXT("aistats")) ;
 
+	// I am struggling so much to have the ai controller actually look at the stats component for the AI tank... there is no collision event
+	// or similar to grab a root object out of and it would be meaningless to simply adjust for healing withoug cause...
 	if (controllerState.Equals("healing")) {
 		GetBlackboardComponent()->SetValueAsBool(TEXT("healing"), true);
 		for (TObjectIterator<APowerupActor> It; It; ++It)

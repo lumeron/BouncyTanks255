@@ -39,4 +39,5 @@ public:
 		FString controllerState = "default";
 
 	APawn* PlayerTank;
+	AEnemyTank* EnemyTank;
 };
