@@ -56,6 +56,10 @@ void AEnemyTankAIController::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
 	
+	//if (flaggedForDeletion) {
+	//	GetBlackboardComponent()->ClearValue(TEXT("healingLocation"));
+	//	UE_LOG(LogTemp, Warning, TEXT("Heal location cleared"));
+	//}
 //	controllerState = GetPawn()->get     GetComponentsByTag(UStatsComponent::StaticClass(), FName("aistats"))->currentHealth;
 			//FindComponentByClass(TSubclassOf<UStatsComponent>("aistats"));
 	PlayerTank = UGameplayStatics::GetPlayerPawn(GetWorld(), 0);
@@ -65,18 +69,23 @@ void AEnemyTankAIController::Tick(float DeltaTime)
 	// or similar to grab a root object out of and it would be meaningless to simply adjust for healing withoug cause...
 	if (controllerState.Equals("healing")) {
 		GetBlackboardComponent()->SetValueAsBool(TEXT("healing"), true);
-		for (TObjectIterator<APowerupActor> It; It; ++It)
-		{
-			// get the first available powerup actor and then break the loop
-			if (!It->IsHidden()) {
-				GetBlackboardComponent()->SetValueAsVector(TEXT("healingLocation"), It->GetActorLocation());
-				break;
+		if (firstHealIteration) {
+			for (TObjectIterator<APowerupActor> It; It; ++It)
+			{
+				// get the first available powerup actor and then break the loop
+				if (It->PowerupMeshComponent->GetVisibleFlag()==true) {
+					GetBlackboardComponent()->SetValueAsVector(TEXT("healingLocation"), It->GetActorLocation());
+					UE_LOG(LogTemp, Warning, TEXT("Heal location set"));
+					flaggedForDeletion = true;
+					break;
+				}
 			}
 		}
 	}
 	else {
 		GetBlackboardComponent()->ClearValue(TEXT("healing"));
 		GetBlackboardComponent()->ClearValue(TEXT("healingLocation"));
+		firstHealIteration = true;
 
 		//handles dynamic settings for blackboard components
 		if (LineOfSightTo(PlayerTank) && !controllerState.Equals("healing")) {

@@ -31,6 +31,9 @@ private:
 protected:
 	virtual void BeginPlay() override;
 
+	bool flaggedForDeletion = false;
+	bool firstHealIteration = true;
+
 public:
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;

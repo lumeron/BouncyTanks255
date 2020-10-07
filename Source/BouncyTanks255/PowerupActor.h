@@ -31,8 +31,6 @@ public:
 private:
 //	UPROPERTY(Category = "Components", VisibleAnywhere, BlueprintReadOnly, meta = (AllowPrivateAccess = "true"))
 //		URotatingMovementComponent* RotationComponent;
-	UPROPERTY(Category = "Components", VisibleAnywhere, BlueprintReadOnly, meta = (AllowPrivateAccess = "true"))
-		UStaticMeshComponent* PowerupMeshComponent;
 
 	UPROPERTY(Category = "GeneratedPowerupValues", VisibleAnywhere, BlueprintReadOnly, meta = (AllowPrivateAccess = "true"))
 		FString powerupGeneratedType;
@@ -43,8 +41,11 @@ private:
 protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
+	
 
 public:	
+	UPROPERTY(Category = "Components", VisibleAnywhere, BlueprintReadOnly, meta = (AllowPrivateAccess = "true"))
+		UStaticMeshComponent* PowerupMeshComponent;
 	UPROPERTY(Category = "PowerupSettings", EditAnywhere, BlueprintReadWrite)
 		float healEffect = 20.0f;
 	UPROPERTY(Category = "PowerupSettings", EditAnywhere, BlueprintReadWrite)
