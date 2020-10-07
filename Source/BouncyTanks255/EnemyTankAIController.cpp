@@ -55,7 +55,7 @@ void AEnemyTankAIController::BeginPlay()
 void AEnemyTankAIController::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
-	
+
 	//if (flaggedForDeletion) {
 	//	GetBlackboardComponent()->ClearValue(TEXT("healingLocation"));
 	//	UE_LOG(LogTemp, Warning, TEXT("Heal location cleared"));
@@ -64,28 +64,43 @@ void AEnemyTankAIController::Tick(float DeltaTime)
 			//FindComponentByClass(TSubclassOf<UStatsComponent>("aistats"));
 	PlayerTank = UGameplayStatics::GetPlayerPawn(GetWorld(), 0);
 	//	GetPawn()->GetComponentByClass(TSubclassOf<UStatsComponent>(TEXT("aistats")) ;
-
-	// I am struggling so much to have the ai controller actually look at the stats component for the AI tank... there is no collision event
-	// or similar to grab a root object out of and it would be meaningless to simply adjust for healing withoug cause...
+	
+	if (!powerupStillAvailable) {
+		pendingHeal = true;
+	}
+	// I struggled a lot to have the ai controller actually look at the stats component for the AI tank... there is no collision event
+	// or similar to grab a root object out of and it would be meaningless to simply adjust for healing withoug cause - eventually I used
+	// a blueprint reference from enemytankbase to change controllerState here.
 	if (controllerState.Equals("healing")) {
-		GetBlackboardComponent()->SetValueAsBool(TEXT("healing"), true);
-		if (firstHealIteration) {
+
+		if (pendingHeal) {
 			for (TObjectIterator<APowerupActor> It; It; ++It)
 			{
 				// get the first available powerup actor and then break the loop
-				if (It->PowerupMeshComponent->GetVisibleFlag()==true) {
-					GetBlackboardComponent()->SetValueAsVector(TEXT("healingLocation"), It->GetActorLocation());
-					UE_LOG(LogTemp, Warning, TEXT("Heal location set"));
-					flaggedForDeletion = true;
+				if (It->powerupAvailable) {
+					powerupStillAvailable = &It->powerupAvailable;
+					if (nearestHeal != It->GetActorLocation()) {
+						nearestHeal = It->GetActorLocation();
+						GetBlackboardComponent()->ClearValue(TEXT("healingLocation"));
+						pendingHeal = false;
+						UE_LOG(LogTemp, Warning, TEXT("Heal location set to %f , %f"), nearestHeal.Y, nearestHeal.X);
+					}
 					break;
+				}
+				else {
+					UE_LOG(LogTemp, Warning, TEXT("Targeted heal is not available"));
+					continue;
 				}
 			}
 		}
+
+		GetBlackboardComponent()->SetValueAsBool(TEXT("healing"), true);
+		GetBlackboardComponent()->SetValueAsVector(TEXT("healingLocation"), nearestHeal);
 	}
 	else {
 		GetBlackboardComponent()->ClearValue(TEXT("healing"));
 		GetBlackboardComponent()->ClearValue(TEXT("healingLocation"));
-		firstHealIteration = true;
+		pendingHeal = true;
 
 		//handles dynamic settings for blackboard components
 		if (LineOfSightTo(PlayerTank) && !controllerState.Equals("healing")) {

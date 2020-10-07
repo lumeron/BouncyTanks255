@@ -31,8 +31,9 @@ private:
 protected:
 	virtual void BeginPlay() override;
 
-	bool flaggedForDeletion = false;
-	bool firstHealIteration = true;
+	FVector nearestHeal = FVector(0.f,0.f,0.f);
+	bool pendingHeal = true;
+	bool *powerupStillAvailable;
 
 public:
 	// Called every frame
