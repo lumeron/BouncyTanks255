@@ -17,13 +17,6 @@ APlayerTank::APlayerTank()
 	springArm = CreateDefaultSubobject<USpringArmComponent>("playertankspringarm");
 	camera = CreateDefaultSubobject<UCameraComponent>("playertankcamera");
 
-	// attaches springarm to body and camera to springarm
-	springArm->AttachToComponent(body, FAttachmentTransformRules::KeepWorldTransform);
-	camera->AttachToComponent(springArm, FAttachmentTransformRules::KeepWorldTransform);
-
-	// defines starting distance of camera arm
-	springArm->TargetArmLength = springArmDistance;
-	springArm->SocketOffset = FVector(0.f, 0.f, -45.f);
 
 	MovementComponent = CreateDefaultSubobject<UPlayerTankMovementComponent>("playertankmovementcomponent");
 	MovementComponent->UpdatedComponent = RootComponent;
@@ -36,7 +29,17 @@ APlayerTank::APlayerTank()
 void APlayerTank::BeginPlay()
 {
 	Super::BeginPlay();
-	
+
+	// attaches springarm to body and camera to springarm
+	springArm->AttachToComponent(body, FAttachmentTransformRules::KeepWorldTransform);
+	camera->AttachToComponent(springArm, FAttachmentTransformRules::KeepWorldTransform);
+
+	// defines starting distance of camera arm
+	springArm->TargetArmLength = springArmDistance;
+	springArm->SocketOffset = FVector(0.f, 0.f, -45.f);
+
+
+
 //	global = GetGlobals();
 }
 
