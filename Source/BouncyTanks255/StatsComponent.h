@@ -6,7 +6,9 @@
 #include "Components/ActorComponent.h"
 #include "StatsComponent.generated.h"
 
-
+/* -- DOCO/REFLECTION COMMENT --
+ * This component class is used to handle character (player as well as AI) stats, such as health or shields
+ */
 UCLASS( ClassGroup=(Custom), meta=(BlueprintSpawnableComponent) )
 class BOUNCYTANKS255_API UStatsComponent : public UActorComponent
 {
@@ -21,6 +23,9 @@ protected:
 	virtual void BeginPlay() override;
 
 public:	
+	/* -- DOCO/REFLECTION COMMENT --
+	* Base values are used and edited in editor; current value is initialized later and is referenced if a powerup or bullet affects the owning actor.
+	*/
 	UPROPERTY(Category = "Stats", EditAnywhere, BlueprintReadWrite)
 		float baseHealth = 50.0f;
 	UPROPERTY(Category = "Stats", EditAnywhere, BlueprintReadWrite)

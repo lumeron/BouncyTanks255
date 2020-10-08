@@ -16,13 +16,18 @@ void AEnemyTankAIController::BeginPlay()
 	if (AIBehaviorEnemyTank != nullptr) {
 		RunBehaviorTree(AIBehaviorEnemyTank);
 
+		// The player's tank is found at the start, but this is updated during Tick so is not actually required (not removed to avoid any unforeseen issues).
 		PlayerTank = UGameplayStatics::GetPlayerPawn(GetWorld(), 0);
 
-		//Get player position - this will probably be removed and only fetched when player is seen
+		// Sets player position in the blackboard
 		GetBlackboardComponent()->SetValueAsVector(TEXT("PawnSpawnPosition"),GetPawn()->GetActorLocation());
-		//Get pawn spawn position - this could be adjusted for a "return to" location
-//		GetBlackboardComponent()->SetValueAsVector(TEXT("PlayerTankLocation"),PlayerTank->GetActorLocation());
 
+	
+		/* -- DOCO/REFLECTION COMMENT --
+		* The randomizer is set up to get a random number between 1 and 3 and then set patrol point based on this.
+		* In future implementations I would prefer to add some random patrol point handling, as this runs several risks,
+		* including patrol point overlap and stale gameplay, but it currently works at a rudimentary level.
+		*/
 		FRandomStream randomizer = FRandomStream();
 		randomizer.GenerateNewSeed();
 		int randomPatrol = randomizer.RandRange(1, 3);
@@ -78,11 +83,18 @@ void AEnemyTankAIController::Tick(float DeltaTime)
 			{
 				// get the first available powerup actor and then break the loop
 				if (It->powerupAvailable) {
+					//set up powerupStillAvailable pointer so that AI can dynamically determine if a powerup is used/destroyed
 					powerupStillAvailable = &It->powerupAvailable;
 					if (nearestHeal != It->GetActorLocation()) {
+						
+						// set heal location vector
 						nearestHeal = It->GetActorLocation();
+						
 						GetBlackboardComponent()->ClearValue(TEXT("healingLocation"));
+						
+						// prevent over-looping when target already exists
 						pendingHeal = false;
+						
 						UE_LOG(LogTemp, Warning, TEXT("Heal location set to %f , %f"), nearestHeal.Y, nearestHeal.X);
 					}
 					break;
@@ -105,6 +117,7 @@ void AEnemyTankAIController::Tick(float DeltaTime)
 		//handles dynamic settings for blackboard components
 		if (LineOfSightTo(PlayerTank) && !controllerState.Equals("healing")) {
 			GetBlackboardComponent()->SetValueAsBool(TEXT("pursuit"), true);
+			// I didn't mean for this next value to have different case style, I just overlooked it and didn't have time to refactor everywhere in the project
 			GetBlackboardComponent()->SetValueAsVector(TEXT("PlayerTankLocation"), PlayerTank->GetActorLocation());
 		}
 		else {

@@ -6,9 +6,6 @@
 #include "GameFramework/RotatingMovementComponent.h"
 #include "PlayerTankRotationComponent.generated.h"
 
-/**
- * 
- */
 UCLASS()
 class BOUNCYTANKS255_API UPlayerTankRotationComponent : public URotatingMovementComponent
 {

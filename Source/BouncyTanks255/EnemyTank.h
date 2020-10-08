@@ -8,6 +8,10 @@
 #include "Globals.h"
 #include "EnemyTank.generated.h"
 
+/* -- DOCO/REFLECTION COMMENT --
+* This class is used for the AI tank, currently generated to BP_EnemyTankBase
+*/
+
 UCLASS()
 class BOUNCYTANKS255_API AEnemyTank : public ACharacter
 {
@@ -33,20 +37,21 @@ protected:
 public:	
 //	AGlobals* GetGlobals() const;
 
-	// added dynamic movement speed property
+	// added current state variable to be passed to AI controller
 	UPROPERTY(Category = "StateHandling", EditAnywhere, BlueprintReadWrite)
 		FString currentState = "default";
 
-	// added dynamic movement speed property
+	// added movement speed property
 	UPROPERTY(Category = "BaseValues", EditAnywhere, BlueprintReadWrite)
 		float MovementScale = 10.f;
-
+	// not actually implemented as movement is now handled in the AI character movement component
 	UPROPERTY(Category = "BaseValues", EditAnywhere, BlueprintReadWrite)
 		float RotationScale = 0.1f;
 	
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
 
+	// the following three are not used but may be in future
 	void MoveForwardBackward(float val);
 	void TurnLeftRight(float val);
 	void Fire();

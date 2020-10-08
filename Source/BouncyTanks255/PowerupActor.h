@@ -9,6 +9,9 @@
 #include "Globals.h"
 #include "PowerupActor.generated.h"
 
+/* -- DOCO/REFLECTION COMMENT --
+ * This class is used to handle the powerup actor, and is implemented in the BP_Powerup blueprint
+ */
 
 UENUM()
 namespace EPowerupTypes {
@@ -52,6 +55,7 @@ public:
 		float shieldEffect = 40.0f;
 	UPROPERTY(Category = "PowerupSettings", EditAnywhere, BlueprintReadWrite)
 		float powerEffect = 10.0f;
+	// ENUM for PowerupType
 	UPROPERTY(Category = "PowerupSettings", EditAnywhere, BlueprintReadWrite)
 		TEnumAsByte<EPowerupTypes::Type> PowerupType;
 	UPROPERTY(Category = "PowerupSettings", EditAnywhere, BlueprintReadWrite)

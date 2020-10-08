@@ -8,7 +8,8 @@ AEnemyTank::AEnemyTank()
 {
  	// Set this character to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
 	PrimaryActorTick.bCanEverTick = true;
-
+	
+	// initialized form of aiStats as a UStatsComponent
 	aiStats = CreateDefaultSubobject<UStatsComponent>(TEXT("aistats"));
 
 }
@@ -47,19 +48,3 @@ void AEnemyTank::Fire()
 {
 	return;
 }
-
-/* not being used as objectiterator is now handling it
-AGlobals* AEnemyTank::GetGlobals() const
-{
-	if (global) {
-		return global;
-	}
-	else
-	{
-		UE_LOG(LogTemp, Warning, TEXT("EnemyTank.cpp reports globals not initialized"));
-	}
-
-	return NULL;
-
-}
-*/

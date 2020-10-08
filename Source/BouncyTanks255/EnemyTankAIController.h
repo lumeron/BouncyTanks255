@@ -12,8 +12,8 @@
 #include "BehaviorTree/BlackboardComponent.h"
 #include "EnemyTankAIController.generated.h"
 
-/**
- * 
+/* -- DOCO/REFLECTION COMMENT --
+ * This class is used to handle and adjust AI behavior, as well as to adjust blackboard/behavior tree states
  */
 UCLASS()
 class BOUNCYTANKS255_API AEnemyTankAIController : public AAIController
@@ -39,6 +39,7 @@ public:
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
 
+	// controllerState
 	UPROPERTY(Category = "StateHandling", EditAnywhere, BlueprintReadWrite)
 		FString controllerState = "default";
 

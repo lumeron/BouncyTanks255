@@ -22,6 +22,9 @@ void APowerupActor::BeginPlay()
 {
 	Super::BeginPlay();
 
+	/* -- DOCO/REFLECTION COMMENT --
+	* Switch for assigning values per powerup type generated. Currently only heal powerup is implemented.
+	*/
 	switch (PowerupType) {
 	case 0:
 		// 0 is for health powerup
@@ -55,6 +58,7 @@ void APowerupActor::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
 
+	// Rotation handling - powerups spin perpetually
 	FRotator RotationSpeed = FRotator(0, 4, 0);
 	FQuat QuatRotation = FQuat(RotationSpeed);
 

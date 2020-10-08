@@ -6,6 +6,10 @@
 #include "GameFramework/Actor.h"
 #include "Globals.generated.h"
 
+/* -- DOCO/REFLECTION COMMENT --
+ * This class is used to handle and adjust AI behavior, as well as to adjust blackboard/behavior tree states
+ */
+
 UCLASS()
 class BOUNCYTANKS255_API AGlobals : public AActor
 {

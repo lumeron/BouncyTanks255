@@ -13,6 +13,10 @@
 //#include "PlayerTankRotationComponent.h"
 #include "PlayerTank.generated.h"
 
+/* -- DOCO/REFLECTION COMMENT --
+ * This class is used for the player's tank, and is implemented for BP_PlayerTank
+ */
+
 UCLASS()
 class BOUNCYTANKS255_API APlayerTank : public APawn
 {
@@ -77,6 +81,7 @@ public:
 	UPROPERTY(Category = "BaseValues", EditAnywhere, BlueprintReadWrite)
 		float MovementScale = 10.f;
 
+	// rotation speed
 	UPROPERTY(Category = "BaseValues", EditAnywhere, BlueprintReadWrite)
 		float RotationScale = 0.1f;
 

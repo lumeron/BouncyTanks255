@@ -3,6 +3,10 @@
 
 #include "HealthPoolComponent.h"
 
+/* -- DOCO/REFLECTION COMMENT --
+ * This class is not used. I created it and immediately realized I wanted a stat component instead. Have simply not removed yet.
+ */
+
 // Sets default values for this component's properties
 UHealthPoolComponent::UHealthPoolComponent()
 {
