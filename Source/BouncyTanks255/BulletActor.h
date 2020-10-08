@@ -20,7 +20,6 @@ public:
 	ABulletActor();
 
 private:
-	AGlobals* global;
 
 	UPROPERTY(Category = "Components", VisibleAnywhere, BlueprintReadOnly, meta = (AllowPrivateAccess = "true"))
 		UProjectileMovementComponent* ProjectileMovement;
@@ -34,6 +33,8 @@ protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
 	
+	AGlobals* globals;
+
 //	float currentLifespan;
 
 public:	
@@ -51,6 +52,9 @@ public:
 		float baseDamage = 10.0f;
 	UPROPERTY(Category = "Damage", EditAnywhere, BlueprintReadWrite)
 		float currentDamage;
+
+	UPROPERTY(Category = "BaseValues", EditAnywhere, BlueprintReadWrite)
+		bool spawnedByPlayer = false;
 
 //	AGlobals* GetGlobals() const;
 };

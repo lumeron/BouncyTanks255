@@ -33,10 +33,11 @@ void ABulletActor::BeginPlay()
 	Super::BeginPlay();
 	
 //	global = GetGlobals();
-	
-	for (TObjectIterator<AGlobals> It; It; ++It)
-	{
-		It->bulletCount++;
+	if (spawnedByPlayer) {
+		for (TObjectIterator<AGlobals> It; It; ++It)
+		{
+			It->bulletCount++;
+		}
 	}
 }
 
@@ -49,7 +50,7 @@ void ABulletActor::Tick(float DeltaTime)
 	FVector MovementThisFrame = this->GetActorForwardVector() * baseSpeed * DeltaTime;
 	this->SetActorLocation(this->GetActorLocation() + MovementThisFrame);
 	*/
-	/* originally I was manually handling lifespan, but then i learned about the actual lifespan variable that uses seconds, so i used that instead (below).
+	/* originally I was manually handling lifespan, but then I learned about the actual lifespan variable that uses seconds, so i used that instead (below).
 	if (currentLifespan > 0.0f) {
 		currentLifespan -= 1.0f;
 	}
@@ -77,9 +78,11 @@ void ABulletActor::LifeSpanExpired()
 */
 void ABulletActor::Destroyed()
 {
-	for (TObjectIterator<AGlobals> It; It; ++It)
-	{
-		It->bulletCount--;
+	if (spawnedByPlayer) {
+		for (TObjectIterator<AGlobals> It; It; ++It)
+		{
+			It->bulletCount--;
+		}
 	}
 }
 /* not being used as objectiterator is now handling it
